@@ -42,6 +42,9 @@
         .bg-primary { background-color: var(--primary-color); }
         .text-primary { color: var(--primary-color); }
         .border-primary { border-color: var(--primary-color); }
+          html, body { max-width:100%; overflow-x:hidden; }
+  /* blokada overscroll/gestów w poziomie */
+  body { touch-action: pan-y; overscroll-behavior-x: none; }
     </style>
 </head>
 <body class="font-sans bg-gray-50 theme-active">
