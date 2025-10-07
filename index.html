@@ -15,40 +15,25 @@
       theme: {
         extend: {
           colors: {
-            primary: {
-              custom: "#FD0004",
-            },
+            primary: { custom: "#FD0004" },
           },
         },
       },
     };
   </script>
   <style>
-    .theme-active {
-      --primary-color: #fd0004;
-    }
-    .bg-primary {
-      background-color: var(--primary-color);
-    }
-    .text-primary {
-      color: var(--primary-color);
-    }
-    html,
-    body {
-      max-width: 100%;
-      overflow-x: hidden;
-    }
-    body {
-      touch-action: pan-y;
-      overscroll-behavior-x: none;
-    }
+    .theme-active { --primary-color: #fd0004; }
+    .bg-primary { background-color: var(--primary-color); }
+    .text-primary { color: var(--primary-color); }
+    html, body { max-width: 100%; overflow-x: hidden; }
+    body { touch-action: pan-y; overscroll-behavior-x: none; }
   </style>
 </head>
 <body class="font-sans bg-gray-50 theme-active overflow-x-hidden">
   <header class="h-[20vh] max-h-[160px] relative px-2 md:px-8 bg-white shadow-sm">
     <div class="absolute bottom-0 left-0 p-4">
       <!-- ✅ TU data zostanie podmieniona dynamicznie -->
-      <p class="text-black font-bold text-2xl">Loading date...</p>
+      <p id="plan-date" class="text-black font-bold text-2xl">Loading date...</p>
     </div>
     <img
       src="https://raw.githubusercontent.com/AgnieszkaChab/Plan-Share-URL/refs/heads/main/Lead%20Logo.png"
@@ -95,27 +80,15 @@
 
   <!-- ✅ SKRYPT POBIERAJĄCY DATĘ Z GITHUB -->
   <script>
-    (async () => {
-      const url =
-        "https://raw.githubusercontent.com/AgnieszkaChab/Plan-Share-URL/main/Variables/plan.json?cachebust=" +
-        Date.now();
-      try {
-        const res = await fetch(url, { cache: "no-store" });
-        if (!res.ok) throw new Error("HTTP " + res.status);
-        const data = await res.json();
-        const dateEl = document.querySelector("header p.text-black.font-bold.text-2xl");
-        if (dateEl && data.date) {
-          const dt = new Date(data.date);
-          dateEl.textContent = dt.toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          });
-        }
-      } catch (e) {
-        console.error("❌ Błąd wczytywania daty:", e);
-      }
-    })();
+    fetch("https://raw.githubusercontent.com/AgnieszkaChab/Plan-Share-URL/main/Variables/plan.json?cb=" + Date.now())
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById("plan-date").textContent = data.date;
+      })
+      .catch(error => {
+        console.error("❌ Błąd wczytywania daty:", error);
+        document.getElementById("plan-date").textContent = "Date load error";
+      });
   </script>
 
   <script>
