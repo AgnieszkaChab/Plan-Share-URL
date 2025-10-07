@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FitnessPlanShare</title>
-  <link rel="icon" type="image/x-icon" href="/static/favicon.ico" />
+  <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
   <script src="https://unpkg.com/feather-icons"></script>
@@ -16,12 +16,22 @@
         extend: {
           colors: {
             primary: {
-              custom: "#FD0004",
-            },
-          },
-        },
-      },
-    };
+              50: '#fef2f2',
+              100: '#fee2e2',
+              200: '#fecaca',
+              300: '#fca5a5',
+              400: '#f87171',
+              500: '#ef4444',
+              600: '#dc2626',
+              700: '#b91c1c',
+              800: '#991b1b',
+              900: '#7f1d1d',
+              custom: '#FD0004',
+            }
+          }
+        }
+      }
+    }
   </script>
   <style>
     .theme-pink { --primary-color: #FF0BAC; }
@@ -35,10 +45,11 @@
     body { touch-action: pan-y; overscroll-behavior-x: none; }
   </style>
 </head>
+
 <body class="font-sans bg-gray-50 theme-active overflow-x-hidden">
   <header class="h-[20vh] max-h-[160px] relative px-2 md:px-8 bg-white shadow-sm">
     <div class="absolute bottom-0 left-0 p-4">
-      <!-- ✅ Tu data zostanie podmieniona -->
+      <!-- ✅ teraz data zostanie pobrana dynamicznie -->
       <p id="plan-date" class="text-black font-bold text-2xl">Loading date...</p>
     </div>
     <img src="https://raw.githubusercontent.com/AgnieszkaChab/Plan-Share-URL/refs/heads/main/Lead%20Logo.png" alt="GM Planner Logo" class="h-full max-h-[100px] w-auto absolute right-0 pr-4 md:pr-8 hovered-element">
@@ -97,7 +108,8 @@
         <h2 class="text-2xl font-bold text-gray-900 mb-8">Workout Exercises</h2>
         <p class="mb-8"><span class="font-medium text-gray-500">Description:</span> <span class="font-medium">Let's meet outside the gym so we can start our workout together</span></p>
 
-        <!-- … (tu zostaje cała lista ćwiczeń dokładnie jak miałeś) … -->
+        <!-- 🔁 wszystkie ćwiczenia zostają bez zmian -->
+        <!-- Exercise 1–6 -->
 
       </div>
     </section>
@@ -128,7 +140,7 @@
     </div>
   </footer>
 
-  <!-- ✅ Prosty fetch daty -->
+  <!-- ✅ nowy skrypt: pobieranie daty z plan.json -->
   <script>
     fetch("https://raw.githubusercontent.com/AgnieszkaChab/Plan-Share-URL/main/Variables/plan.json?cb=" + Date.now())
       .then(response => response.json())
@@ -142,12 +154,8 @@
   </script>
 
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      AOS.init({
-        duration: 800,
-        offset: 20,
-        easing: "ease-in-out",
-      });
+    document.addEventListener('DOMContentLoaded', function() {
+      AOS.init({ duration: 800, offset: 20, easing: 'ease-in-out' });
       feather.replace();
     });
   </script>
